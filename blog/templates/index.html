@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block title %}
+Главная страница
+{% endblock %}
+{% block content %}
+<style>
+  a{
+    text-decoration: none;
+    color: black;
+    &:hover{
+        color: rgb(44, 40, 40);
+    }
+}
+</style>
+<div class="container"> 
+   <div class="row row-cols-1 mt-3 row-cols-md-5 g-3">
+      {% for post in posts %}
+      <div class="col" >
+        <div class="card" style="min-height: 650px; border-radius: 25px;">
+          <img src="{{post.image.url}}" style="border-radius: 25px; height: 300px; object-fit: cover;" class="card-img-top" alt="...">
+          <div class="card-body">
+            <a href="{{post.get_link}}">
+            <h5 class="card-title" >{{post.title}}</h5>
+            </a>
+            <p class="card-text">{{post.text|slice:'0:200'}}...</p>
+            <p class="text-end">{{post.date|date:'d-F-Y'}}</p>
+          </div>
+        </div>
+      </div>
+    
+      {% endfor %}
+    </div>
+      <div class="row mt-3 row-cols-1 row-cols-md-5 g-4">
+         {% for category in categories %}
+        <div class="col">
+          <a href="{{category.get_link}}">
+           <div class="card">
+             <img src="{{category.image.url}}" class="card-img-top" style="height: 100px; object-fit: cover;" alt="...">
+             <div class="card-body">
+               <h5 class="card-title" style="text-align: center;">{{category.title}}</a></h5>
+             </div>
+           </div>
+         </div>
+         {% endfor %}
+      </div>
+</div>
+
+{% endblock %}
